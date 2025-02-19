@@ -1,0 +1,57 @@
+{
+  "name": "@aptos/base",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "@aptos/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup --format esm --dts",
+    "lint": "eslint --fix  --cache .",
+    "watch": "tsc --watch",
+    "dev": "tsup --format esm --dts --watch",
+    "build:docs": "cd docs && pnpm run build",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^1.1.1",
+    "@anthropic-ai/sdk": "^0.33.1",
+    "axios": "^1.7.9",
+    "@langchain/core": "^0.3.40",
+    "@langchain/openai": "^0.4.4",
+    "@tensorflow-models/universal-sentence-encoder": "^1.3.3",
+    "@tensorflow/tfjs-core": "^4.22.0",
+    "@tensorflow/tfjs-node": "^4.22.0",
+    "ai": "^4.0.38",
+    "express": "^4.21.2",
+    "langchain": "^0.3.15",
+    "openai": "^4.78.1",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "pdf-parse": "^1.1.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.3.6"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
+  }
+}

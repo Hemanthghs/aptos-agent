@@ -12,6 +12,6 @@ export default defineConfig({
     splitting: true, // Add this for better code splitting
     dts: true, // Generate declaration files
     external: [
-
+        
     ],
 });

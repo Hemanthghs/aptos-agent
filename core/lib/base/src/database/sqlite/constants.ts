@@ -15,5 +15,4 @@ CREATE INDEX IF NOT EXISTS idx_content ON documents(content);
 
 -- Index on parent_id for hierarchical searches
 CREATE INDEX IF NOT EXISTS idx_parent_id ON documents(parent_id);
--- Sage tasks related schema
 `;
