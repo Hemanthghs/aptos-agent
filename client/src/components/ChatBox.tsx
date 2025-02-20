@@ -227,7 +227,7 @@ const BotChat = ({ content, status }: { content: string; status: string }) => {
             <div className="text-[14px] md:text-[16px] font-light">
               <DisplayMarkdown content={content} />
             </div>
-            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute top-2 right-2">
               <CopyWithFeedback value={content} />
             </div>
           </div>

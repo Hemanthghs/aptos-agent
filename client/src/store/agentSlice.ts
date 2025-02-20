@@ -122,7 +122,7 @@ export const addSessionItem = createAsyncThunk<
 });
 
 export const agentSlice = createSlice({
-  name: "interchain-agent",
+  name: "agent",
   initialState,
   reducers: {
     toggleAgentDialog: (state) => {
