@@ -1,0 +1,14 @@
+services:
+  - name: my-node-app
+    type: web
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: "cd core && cd lib/base && pnpm build"
+    startCommand: "cd agent && pnpm start"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+    autoDeploy: true
