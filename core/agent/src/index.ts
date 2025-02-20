@@ -138,7 +138,7 @@ app.get("/status", (req: Request, res: Response) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000; // Render provides PORT dynamically
+const PORT = 3000; // Render provides PORT dynamically
 
 app.listen(PORT, '0.0.0.0', () => {  // Ensure it listens on all network interfaces
   console.info(`Server running on port ${PORT}`);
