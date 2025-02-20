@@ -28,32 +28,6 @@ const Agent = () => {
   console.log(chatInputTime);
   const [inputDisabled, setInputDisabled] = useState<boolean>(false);
 
-  // const resetInputState = () => {
-  //   setUserInput("");
-  //   setInputDisabled(false);
-  // };
-
-  // const dispatchSessionItem = (
-  //   userInput: string,
-  //   status: string,
-  //   result: string,
-  //   errMessage: string
-  // ) => {
-  //   dispatch(
-  //     addSessionItem({
-  //       request: {
-  //         [userInput]: {
-  //           errMessage,
-  //           result,
-  //           status,
-  //           date: chatInputTime,
-  //         },
-  //       },
-  //       sessionID: currentSessionID,
-  //     })
-  //   );
-  // };
-
   const abortControllerRef = useRef<AbortController | null>(null);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -321,7 +295,7 @@ const Agent = () => {
       onClick={() => dispatch(toggleAgentDialog())}
     >
       <div
-        className="bg-[#09090b] h-full sm:h-[90vh] w-full sm:max-w-[1200px] sm:rounded-xl overflow-hidden shadow-2xl border border-[#ffffff10]"
+        className="bg-[#09090b] h-full sm:h-[90vh] w-full sm:max-w-[1350px] sm:rounded-xl overflow-hidden shadow-2xl border border-[#ffffff10]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex w-full h-full relative">

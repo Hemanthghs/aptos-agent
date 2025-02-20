@@ -1,7 +1,6 @@
 "use client";
 
 import Agent from "@/components/Agent";
-import { DisplayMarkdown } from "@/components/ChatBox";
 import { toggleAgentDialog } from "@/store/agentSlice";
 import { useAppDispatch } from "@/store/store";
 import React, { useEffect, useState } from "react";
