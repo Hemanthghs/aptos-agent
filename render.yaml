@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: "pnpm install && cd core && cd lib/base && pnpm build"
+    buildCommand: "cd core && pnpm install && cd lib/base && pnpm build"
     startCommand: "cd agent && pnpm install && pnpm start"
     envVars:
       - key: NODE_ENV
