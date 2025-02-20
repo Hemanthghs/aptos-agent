@@ -138,11 +138,10 @@ app.get("/status", (req: Request, res: Response) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.info(`Server running on http://localhost:${PORT}`);
+const PORT = process.env.PORT || 3000; // Render provides PORT dynamically
 
-  // Auto-start the runtime when server starts
+app.listen(PORT, '0.0.0.0', () => {  // Ensure it listens on all network interfaces
+  console.info(`Server running on port ${PORT}`);
   initializeRuntime();
 });
 
