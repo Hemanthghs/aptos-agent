@@ -38,11 +38,15 @@ export class BaseAgentRuntime implements AgentRuntime {
       // Summarize the found documents
       const summary = await this.summarize(documents);
 
+      console.log("summary>>>>>>>.", summary)
       // Format the context for LLM
       const messageHandlerTemplate = this.createMessageTemplate(
         userText,
         summary
       );
+
+      console.log("summary>>>>>>>.", messageHandlerTemplate)
+
 
       // Generate response using external function
       const response = await generateMessageResponse({
@@ -52,10 +56,10 @@ export class BaseAgentRuntime implements AgentRuntime {
 
       console.log("response....", response);
       // Parse the response
-    //   const parsedResponse = parseResponse(response);
-    //   if (!parsedResponse || !parsedResponse.text) {
-    //     throw new Error("Failed to generate valid response");
-    //   }
+      //   const parsedResponse = parseResponse(response);
+      //   if (!parsedResponse || !parsedResponse.text) {
+      //     throw new Error("Failed to generate valid response");
+      //   }
 
       return JSON.stringify(response);
     } catch (error) {
@@ -72,14 +76,23 @@ export class BaseAgentRuntime implements AgentRuntime {
    */
   private createMessageTemplate(userText: string, summary: string): string {
     return `
-User Question: ${userText}
-
-Relevant Information:
-${summary}
-
-Please provide a helpful, accurate response based on the above information:
-`;
+  You are an expert assistant providing accurate and insightful responses.
+  
+  ### User Query:
+  ${userText}
+  
+  ### Context & Relevant Information:
+  ${summary}
+  
+  ### Instructions:
+  - Use the provided context to craft a precise and well-structured response.
+  - If additional clarification is needed, make reasonable assumptions.
+  - Keep the response clear, concise, and informative.
+  
+  Now, generate the best possible response:
+  `;
   }
+
 
   /**
    * Searches the knowledge base using a text query.
