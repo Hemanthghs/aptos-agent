@@ -57,7 +57,7 @@ export class BaseAgentRuntime implements AgentRuntime {
     //     throw new Error("Failed to generate valid response");
     //   }
 
-      return JSON.stringify(response);
+      return response;
     } catch (error) {
       console.error("Error generating response:", error);
       return "I encountered an error while processing your request. Please try again.";

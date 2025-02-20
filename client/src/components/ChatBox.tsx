@@ -98,7 +98,7 @@ const ChatBox = ({
             </button>
           )}
           <h1 className="text-base md:text-lg font-semibold text-white">
-            AI Assistant
+            Aptos Assistant
           </h1>
         </div>
         <button
@@ -237,7 +237,7 @@ const BotChat = ({ content, status }: { content: string; status: string }) => {
   );
 };
 
-const DisplayMarkdown = ({ content }: { content: string }) => {
+export const DisplayMarkdown = ({ content }: { content: string }) => {
   return (
     <div
       className="chat-markdown"

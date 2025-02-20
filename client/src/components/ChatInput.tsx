@@ -68,7 +68,7 @@ const ChatInput = ({
             disabled={disabled}
             autoComplete="off"
             autoFocus={true}
-            placeholder="Message AI Assistant..."
+            placeholder="Message Aptos Assistant..."
             rows={1}
           />
         </div>

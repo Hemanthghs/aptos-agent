@@ -10,6 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 import SideBar from "./SideBar";
 import ChatBox from "./ChatBox";
+import { AGENT_BACKEND_URL } from "@/utils/constants";
 
 const Agent = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ const Agent = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [userInput, setUserInput] = useState("");
   const [chatInputTime, setChatInputTime] = useState<string>("");
-  console.log(chatInputTime)
+  console.log(chatInputTime);
   const [inputDisabled, setInputDisabled] = useState<boolean>(false);
 
   // const resetInputState = () => {
@@ -89,24 +90,26 @@ const Agent = () => {
 
       try {
         setUserInput("");
-        const response = await fetch(`${""}`, {
+        const response = await fetch(`${AGENT_BACKEND_URL}/chat`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({}),
+          body: JSON.stringify({
+            message: userInput,
+          }),
           signal,
         });
 
         const data = await response.json();
 
-        if (data.status === "success") {
+        if (response.ok) {
           dispatch(
             addSessionItem({
               request: {
                 [userInput]: {
                   errMessage: "",
-                  result: data.result,
+                  result: data.response.replace(/^"(.*)"$/, '$1'),
                   status: "success",
                   date: currentDate,
                 },
@@ -114,7 +117,7 @@ const Agent = () => {
               sessionID: currentSessionID,
             })
           );
-        } else if (data.status === "error") {
+        } else {
           dispatch(
             addSessionItem({
               request: {
@@ -186,21 +189,23 @@ const Agent = () => {
     const handleClickOutside = (event: MouseEvent) => {
       // Only handle on mobile screens
       if (window.innerWidth < 640 && sidebarOpen) {
-        const sidebarElement = document.getElementById('sidebar-container');
-        const toggleButton = document.getElementById('sidebar-toggle');
-        
-        if (sidebarElement && 
-            !sidebarElement.contains(event.target as Node) && 
-            toggleButton && 
-            !toggleButton.contains(event.target as Node)) {
+        const sidebarElement = document.getElementById("sidebar-container");
+        const toggleButton = document.getElementById("sidebar-toggle");
+
+        if (
+          sidebarElement &&
+          !sidebarElement.contains(event.target as Node) &&
+          toggleButton &&
+          !toggleButton.contains(event.target as Node)
+        ) {
           setSidebarOpen(false);
         }
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [sidebarOpen]);
 
@@ -230,7 +235,7 @@ const Agent = () => {
       if (window.innerWidth < 640) {
         setSidebarOpen(false);
       }
-      
+
       const newSessionID = uuid();
       dispatch(setCurrentSessionID(newSessionID));
       setUserInput("");
@@ -286,7 +291,7 @@ const Agent = () => {
 
   useEffect(() => {
     dispatch(loadSessionStateFromLocalStorage());
-    
+
     // Add window resize handler for responsive sidebar
     const handleResize = () => {
       if (window.innerWidth < 640) {
@@ -295,21 +300,21 @@ const Agent = () => {
         setSidebarOpen(true);
       }
     };
-    
-    window.addEventListener('resize', handleResize);
-    
+
+    window.addEventListener("resize", handleResize);
+
     // Initial check
     handleResize();
-    
+
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [dispatch]);
 
   if (!agentDialogOpen) {
     return null;
   }
-  
+
   return (
     <div
       className="fixed inset-0 flex justify-center items-center p-0 sm:p-6 bg-black/80 backdrop-blur-sm z-[99999999]"

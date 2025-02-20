@@ -30,7 +30,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .overflow-hidden {
@@ -38,11 +38,11 @@ body {
 }
 
 .chat-markdown code {
-  @apply bg-[#1e1e22] rounded-md px-2 py-0.5 text-sm;
+  @apply bg-[#18181b] rounded-md px-2 py-0.5 text-sm;
 }
 
 .chat-markdown pre {
-  @apply bg-[#1e1e22] rounded-lg p-3 overflow-x-auto;
+  @apply bg-[#18181b] rounded-lg p-3 overflow-x-auto border border-zinc-700;
 }
 
 .input-box {
@@ -60,13 +60,23 @@ body {
 .dots-loader::after {
   display: inline-block;
   animation: dotty steps(1, end) 1s infinite;
-  content: '';
+  content: "";
 }
 
 @keyframes dotty {
-  0%   { content: ''; }
-  25%  { content: '.'; }
-  50%  { content: '..'; }
-  75%  { content: '...'; }
-  100% { content: ''; }
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+  100% {
+    content: "";
+  }
 }

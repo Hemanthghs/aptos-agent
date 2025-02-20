@@ -65,12 +65,12 @@ const SideBar = ({
         <div className="opacity-100 transition-opacity duration-500 flex flex-col h-full">
           {/* Mobile Close Button - Only visible on small screens */}
           <div className="sm:hidden absolute right-3 top-3">
-            <button 
+            <button
               className="p-2 rounded-full hover:bg-[#ffffff15]"
               onClick={(e) => {
                 e.stopPropagation();
                 // Logic to close sidebar
-                const event = new CustomEvent('closeSidebar');
+                const event = new CustomEvent("closeSidebar");
                 document.dispatchEvent(event);
               }}
             >
@@ -90,7 +90,7 @@ const SideBar = ({
               </svg>
             </button>
           </div>
-          
+
           <div className="p-3 md:p-4 flex justify-center border-b border-[#ffffff10]">
             <button
               onClick={startNewSession}
@@ -245,11 +245,11 @@ const SessionItem = ({
     const handleSelectOnMobile = () => {
       if (window.innerWidth < 640 && isSelected) {
         // Dispatch an event that Agent.tsx can listen for
-        const event = new CustomEvent('closeSidebar');
+        const event = new CustomEvent("closeSidebar");
         document.dispatchEvent(event);
       }
     };
-    
+
     if (isSelected) {
       handleSelectOnMobile();
     }
@@ -270,6 +270,9 @@ const SessionItem = ({
         className={`flex-1 w-full py-2 px-3 text-left ${
           isLoading ? "cursor-not-allowed opacity-70" : ""
         }`}
+        title={
+          requestKey.length > 50 ? requestKey.slice(0, 50) + "..." : requestKey
+        }
       >
         <div className="flex items-center gap-2">
           <svg
@@ -287,7 +290,7 @@ const SessionItem = ({
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
           <span
-            className={`text-sm truncate text-[#ffffff90] ${
+            className={`text-sm truncate max-w-[172px] text-[#ffffff90] ${
               isSelected ? "font-medium" : ""
             }`}
           >
