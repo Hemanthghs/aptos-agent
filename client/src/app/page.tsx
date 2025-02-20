@@ -1,101 +1,79 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Agent from "@/components/Agent";
+import { toggleAgentDialog } from "@/store/agentSlice";
+import { useAppDispatch } from "@/store/store";
+import React, { useEffect, useState } from "react";
+
+const Page = () => {
+  const dispatch = useAppDispatch();
+  const [animationClass, setAnimationClass] = useState("");
+  
+  useEffect(() => {
+    setAnimationClass("opacity-100 translate-y-0");
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#121214] to-[#09090b] p-4 overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-10 left-1/3 w-72 h-72 bg-[#ff3e3e] rounded-full opacity-5 blur-3xl"></div>
+        <div className="absolute top-1/2 -right-20 w-80 h-80 bg-[#ff3e3e] rounded-full opacity-5 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#ffffff20] to-transparent"></div>
+      </div>
+      
+      <div className={`text-center max-w-2xl mx-auto mb-12 transition-all duration-1000 transform opacity-0 translate-y-4 ${animationClass}`}>
+        <div className="relative">
+          <div className="w-24 h-24 bg-[#ff3e3e] rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg shadow-[#ff3e3e20] relative z-10 animate-pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="filter brightness-0 invert">
+              <path d="M12 2a7 7 0 0 1 7 7v1.5a1.5 1.5 0 0 1-3 0V9A4 4 0 1 0 8 9v8h8a4 4 0 0 0 2.11-7.41"></path>
+              <path d="M10 10.5a1.5 1.5 0 0 1-3 0V9a7 7 0 0 1 7-7"></path>
+              <path d="M6 9v12"></path>
+              <path d="M18 16.5a1.5 1.5 0 0 1-3 0"></path>
+            </svg>
+          </div>
+          <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-36 h-36 rounded-full border border-[#ffffff10] animate-ping opacity-20"></div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white bg-clip-text text-transparent bg-gradient-to-r from-white to-[#ffffffaa]">AI Assistant</h1>
+        <p className="text-[#ffffffcc] text-xl mb-10 leading-relaxed">Your personal blockchain and development guide, available 24/7</p>
+        
+        <div className="relative">
+          <button
+            onClick={() => dispatch(toggleAgentDialog())}
+            className="group bg-[#ff3e3e] hover:bg-[#e03636] text-white font-medium py-4 px-10 rounded-xl transition-all transform hover:scale-105 hover:shadow-lg hover:shadow-[#ff3e3e30] flex items-center justify-center mx-auto"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-3 group-hover:animate-bounce">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Start Chatting
+          </button>
+          <span className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 text-[#ffffff70] text-sm mt-4 opacity-80">Powered by advanced AI technology</span>
+        </div>
+      </div>
+      
+      {/* Testimonial/Feature section */}
+      <div className={`mt-20 max-w-xl text-center transition-all duration-1000 delay-300 transform opacity-0 translate-y-4 ${animationClass}`}>
+        <div className="flex space-x-6 justify-center mb-8">
+          {["Fast responses", "Blockchain expertise", "Code examples"].map((feature, i) => (
+            <div key={i} className="flex items-center text-[#ffffffaa]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff3e3e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>{feature}</span>
+            </div>
+          ))}
+        </div>
+        
+        <div className="px-6 py-5 bg-[#ffffff0a] rounded-xl border border-[#ffffff10]">
+          <p className="text-[#ffffffdd] italic text-lg">&quot;Ask me anything about blockchain development, smart contracts, or web3 technologies. I&apos;m here to help you build the future.&quot;</p>
+        </div>
+      </div>
+      
+      <Agent />
     </div>
   );
-}
+};
+
+export default Page;

@@ -3,19 +3,70 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #09090b;
+  --foreground: #ffffff;
+  --chat-bg: #09090b;
+  --sidebar-bg: #09090b;
+  --accent: #ff3e3e;
+  --border: rgba(255, 255, 255, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+::-webkit-scrollbar {
+  width: 4px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+*,
+*::before,
+*::after {
+  @apply box-border;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.chat-markdown code {
+  @apply bg-[#1e1e22] rounded-md px-2 py-0.5 text-sm;
+}
+
+.chat-markdown pre {
+  @apply bg-[#1e1e22] rounded-lg p-3 overflow-x-auto;
+}
+
+.input-box {
+  min-height: 24px;
+}
+
+.btn-bg {
+  @apply bg-[#ff3e3e] p-2 hover:bg-[#e03636] transition-colors;
+}
+
+.stop-btn {
+  @apply flex items-center gap-2 py-2 px-4 text-sm bg-[#1e1e22] rounded-full hover:bg-[#2a2a2e] transition-colors;
+}
+
+.dots-loader::after {
+  display: inline-block;
+  animation: dotty steps(1, end) 1s infinite;
+  content: '';
+}
+
+@keyframes dotty {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
 }
