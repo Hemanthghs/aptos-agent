@@ -3,7 +3,6 @@ meta.yaml
 persona.yaml
 actions.yaml
 bot.db
-data/
 uploads/
 knowledge
 tmp
