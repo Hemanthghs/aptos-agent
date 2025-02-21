@@ -20,6 +20,7 @@ app.use(express.json());
 // Chat endpoint interface
 interface ChatRequest {
   message: string;
+  recentMessages: any[]
 }
 
 // Auto-initialize agent runtime on app startup
@@ -176,7 +177,7 @@ app.post("/chat", async (req: Request, res: Response) => {
     );
     let responseText = "";
     if (runtime) {
-      responseText = await runtime.generateResponse(chatRequest.message);
+      responseText = await runtime.generateResponse(chatRequest.message, chatRequest.recentMessages);
     } else {
       console.error(
         "Runtime is not initialized. Skipping knowledge ingestion."

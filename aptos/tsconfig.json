@@ -7,12 +7,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "noEmit": true
   },
   "files": [],
   "references": [
     {
-      "path": "./lib/base"
+      "path": "./backend/base"
     }
   ]
 }
