@@ -7,10 +7,12 @@ services:
     buildCommand: >
       cd core && 
       pnpm install &&
+      pnpm approve-builds @tensorflow/tfjs-node core-js esbuild sqlite3 &&
       pnpm exec npm rebuild @tensorflow/tfjs-node --build-addon-from-source &&
+      pnpm exec npm rebuild sqlite3 --build-from-source &&
       cd lib/base && 
       pnpm build
-    startCommand: "cd core && cd agent && pnpm install && pnpm start"
+    startCommand: "cd core && cd agent && pnpm install && pnpm approve-builds @tensorflow/tfjs-node core-js esbuild sqlite3 && pnpm start"
     envVars:
       - key: NODE_ENV
         value: production
