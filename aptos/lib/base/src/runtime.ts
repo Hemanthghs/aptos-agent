@@ -30,24 +30,19 @@ export class BaseAgentRuntime implements AgentRuntime {
    * @param userText - The user's input text
    * @returns A response string
    */
-  async generateResponse(userText: string): Promise<string> {
+  async generateResponse(userText: string, recentMessagses?: any[]): Promise<string> {
     try {
       // Search for relevant documents using embeddings
-      const documents = await this.searchByEmbedding(userText, 5);
+      const documents = await this.searchByEmbedding(userText, 20);
 
       // Summarize the found documents
       const summary = await this.summarize(documents);
 
-      console.log("summary>>>>>>>.", summary)
       // Format the context for LLM
       const messageHandlerTemplate = this.createMessageTemplate(
         userText,
-        summary
+        summary, recentMessagses
       );
-
-      console.log("summary>>>>>>>.", messageHandlerTemplate)
-
-
       // Generate response using external function
       const response = await generateMessageResponse({
         runtime: this,
@@ -74,12 +69,15 @@ export class BaseAgentRuntime implements AgentRuntime {
    * @param summary - The summary of relevant documents
    * @returns A formatted context string
    */
-  private createMessageTemplate(userText: string, summary: string): string {
+  private createMessageTemplate(userText: string, summary: string, recentMessagses?: any[]): string {
     return `
   You are an expert assistant providing accurate and insightful responses.
   
   ### User Query:
   ${userText}
+
+  ### Recent Conversation
+  ${JSON.stringify(recentMessagses)}
   
   ### Context & Relevant Information:
   ${summary}

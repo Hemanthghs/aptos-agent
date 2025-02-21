@@ -44,7 +44,7 @@ async function initializeRuntime() {
 
       // Define multiple URL patterns to crawl
       const mainUrlPatterns = [
-        "https://aptos.dev/en/build/*",
+        // "https://aptos.dev/en/build/*",
         "https://aptos.dev/en/network/blockchain/*",
         // "https://aptos.dev/en/network/blockchain/events",
         // "https://aptos.dev/en/network/nodes/configure/state-sync"

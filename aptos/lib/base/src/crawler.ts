@@ -42,7 +42,7 @@ export class WebCrawler {
             // Extract base URL and pattern
             const urlObj = new URL(mainUrl);
             this.baseUrl = `${urlObj.protocol}//${urlObj.hostname}`;
-            this.urlPattern = mainUrl;
+            this.urlPattern = mainUrl+"/*";
 
             console.info(`Starting recursive crawl from: ${mainUrl}`);
             console.info(`Base URL: ${this.baseUrl}`);
@@ -87,6 +87,7 @@ export class WebCrawler {
 
             // Discover and crawl linked URLs
             const linkedUrls = await this.discoverLinkedUrls(url);
+
             console.info(`Found ${linkedUrls.length} linked URLs from ${url}`);
 
             // Recursively crawl discovered URLs
@@ -323,32 +324,24 @@ export class WebCrawler {
      */
     private shouldCrawl(url: string): boolean {
         try {
-            // Normalize URLs for comparison
-            const normalizedUrl = url.endsWith('/') ? url : `${url}/`;
-            const normalizedPattern = this.urlPattern.endsWith('/') ?
-                this.urlPattern : `${this.urlPattern}/`;
+            // Ensure URL normalization without extra slashes
+            const normalize = (u: string) => u.replace(/\/+$/, '');
+            const normalizedUrl = normalize(url);
+            const normalizedPattern = normalize(this.urlPattern);
 
-            // Debug the pattern matching
-            if (url.includes('/en/')) {
-                console.debug(`Checking URL: ${url} against pattern: ${this.urlPattern}`);
-            }
+            console.debug(`Checking shouldCrawl: ${normalizedUrl} against ${normalizedPattern}`);
 
-            // Check if URL starts with the pattern (for wildcard patterns)
+            // Check for wildcard patterns
             if (this.urlPattern.endsWith('*')) {
-                const basePattern = this.urlPattern.slice(0, -1);
-                const match = url.startsWith(basePattern);
-                if (match && url.includes('/en/')) {
-                    console.debug(`URL ${url} MATCHES pattern ${basePattern}*`);
-                }
+                const basePattern = normalize(this.urlPattern.slice(0, -1)); // Remove '*'
+                const match = normalizedUrl.startsWith(basePattern);
+                console.debug(`Wildcard match: ${match}`);
                 return match;
             }
 
-            // For exact path matching (non-wildcard)
-            // Also match if the URL is the pattern plus a trailing slash
-            const exactMatch = url === this.urlPattern || normalizedUrl === normalizedPattern;
-            if (exactMatch && url.includes('/en/')) {
-                console.debug(`URL ${url} EXACT MATCHES pattern ${this.urlPattern}`);
-            }
+            // Check for exact match
+            const exactMatch = normalizedUrl === normalizedPattern;
+            console.debug(`Exact match: ${exactMatch}`);
             return exactMatch;
         } catch (e) {
             console.warn(`Error in shouldCrawl: ${(e as Error).message}`);
