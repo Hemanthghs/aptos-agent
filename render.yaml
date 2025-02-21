@@ -6,8 +6,8 @@ services:
     region: oregon
     buildCommand: >
       cd core && 
-      pnpm install && 
-      pnpm rebuild @tensorflow/tfjs-node --build-addon-from-source && 
+      pnpm install &&
+      pnpm exec npm rebuild @tensorflow/tfjs-node --build-addon-from-source &&
       cd lib/base && 
       pnpm build
     startCommand: "cd core && cd agent && pnpm install && pnpm start"
