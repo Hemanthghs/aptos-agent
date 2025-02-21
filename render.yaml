@@ -11,4 +11,6 @@ services:
         value: production
       - key: PORT
         value: 3000
+      - key: NODE_VERSION
+        value: "23.0.0" # Specifies Node.js version 23+
     autoDeploy: true
