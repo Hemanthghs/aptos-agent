@@ -7,17 +7,18 @@ services:
     buildCommand: >
       cd core && 
       pnpm install &&
-      pnpm approve-builds @tensorflow/tfjs-node core-js esbuild sqlite3 &&
-      pnpm exec npm rebuild @tensorflow/tfjs-node --build-addon-from-source &&
-      pnpm exec npm rebuild sqlite3 --build-from-source &&
+      pnpm remove sqlite3 &&
+      pnpm add better-sqlite3 &&
+      pnpm approve-builds @tensorflow/tfjs-node core-js esbuild better-sqlite3 &&
+      pnpm exec npm rebuild @tensorflow/tfjs-node --build-addon-from-source --verbose &&
       cd lib/base && 
       pnpm build
-    startCommand: "cd core && cd agent && pnpm install && pnpm approve-builds @tensorflow/tfjs-node core-js esbuild sqlite3 && pnpm start"
+    startCommand: "cd core && cd agent && pnpm install && pnpm approve-builds @tensorflow/tfjs-node core-js esbuild better-sqlite3 && pnpm start"
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 3000
       - key: NODE_VERSION
-        value: "23.0.0"
+        value: "18.18.0"  # Downgrading to a more stable Node.js version
     autoDeploy: true
