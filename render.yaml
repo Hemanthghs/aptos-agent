@@ -4,7 +4,12 @@ services:
     runtime: node
     plan: free
     region: oregon
-    buildCommand: "cd core && pnpm install && cd lib/base && pnpm build"
+    buildCommand: >
+      cd core && 
+      pnpm install && 
+      pnpm rebuild @tensorflow/tfjs-node --build-addon-from-source && 
+      cd lib/base && 
+      pnpm build
     startCommand: "cd core && cd agent && pnpm install && pnpm start"
     envVars:
       - key: NODE_ENV
@@ -12,5 +17,5 @@ services:
       - key: PORT
         value: 3000
       - key: NODE_VERSION
-        value: "23.0.0" # Specifies Node.js version 23+
+        value: "23.0.0"
     autoDeploy: true
