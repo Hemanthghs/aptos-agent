@@ -45,15 +45,13 @@ You can communicate with the agent using a REST API request.
 
 #### Endpoint
 ```
-http://localhost:9000/agentId/message
+http://localhost:3000/chat
 ```
 
 #### Request Body
 ```json
 {
-  "userId": "",
-  "chatId": "",
-  "text": "Explain about smart contract in aptos?"
+  "message": "Explain about smart contract in aptos?"
 }
 ```
 *Make sure to remember the `chatId` to maintain context across interactions.*
